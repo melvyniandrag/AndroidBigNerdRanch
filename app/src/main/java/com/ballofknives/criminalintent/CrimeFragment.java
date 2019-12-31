@@ -150,4 +150,11 @@ public class CrimeFragment extends Fragment {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    @Override
+    public void onPause() {
+        Log.d(TAG, "Called onPause()");
+        super.onPause();
+        CrimeLab.get(getActivity()).saveCrimes();
+    }
 }
