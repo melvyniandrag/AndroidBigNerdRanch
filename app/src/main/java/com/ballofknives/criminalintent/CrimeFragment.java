@@ -5,8 +5,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Debug;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +20,7 @@ import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.NavUtils;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -29,6 +32,7 @@ public class CrimeFragment extends Fragment {
             "com.bignerdranch.android.criminalintent.crime_id";
     private static final String DIALOG_DATE = "date";
     private static final int REQUEST_DATE = 0;
+    private static final String TAG = "CrimeFragment";
 
     private Crime mCrime;
     private EditText mTitleField;
@@ -62,7 +66,14 @@ public class CrimeFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_crime, container, false);
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB){
-            getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
+            if(NavUtils.getParentActivityName(getActivity()) != null) {
+                String s = NavUtils.getParentActivityName(getActivity());
+                Log.d(TAG, s);
+                Log.d(TAG, getActivity().getLocalClassName());
+                Log.d(TAG, String.valueOf(getActivity().getActionBar() == null ));
+                // TODO : This doesn't work!
+                //getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
+            }
         }
 
         mTitleField = (EditText)v.findViewById(R.id.crime_title);
@@ -129,7 +140,11 @@ public class CrimeFragment extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()){
             case android.R.id.home:
-                // to do
+
+                if(NavUtils.getParentActivityName(getActivity()) != null){
+                    NavUtils.navigateUpFromSameTask(getActivity());
+                }
+
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
