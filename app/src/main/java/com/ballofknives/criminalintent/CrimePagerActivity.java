@@ -14,11 +14,18 @@ import androidx.viewpager.widget.ViewPager;
 import java.util.ArrayList;
 import java.util.UUID;
 
-public class CrimePagerActivity extends AppCompatActivity {
+public class CrimePagerActivity extends AppCompatActivity
+    implements CrimeFragment.Callbacks {
     // the ViewPager class is only from the support library. There is "standard" ViewPager in a later SDK
     // this is in contrast to Fragment.
     private ViewPager mViewPager;
     private ArrayList<Crime> mCrimes;
+
+    public void onCrimeUpdated(Crime crime){
+        // do nothing.
+        // reloading already done in onResume().
+        // see page 372 in the android 3rd edition book.
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

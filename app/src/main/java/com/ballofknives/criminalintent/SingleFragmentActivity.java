@@ -10,6 +10,10 @@ import androidx.fragment.app.FragmentManager;
 public abstract class SingleFragmentActivity extends AppCompatActivity {
     protected abstract Fragment createFragment();
 
+    protected int getLayoutResId(){
+        return R.layout.activity_fragment;
+    }
+
     /**
      * Note that onCreate() in an Activity is protected. In a
      * Fragment, onCreate() is public.
@@ -18,7 +22,8 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fragment);
+        //setContentView(R.layout.activity_fragment);
+        setContentView(getLayoutResId());
 
         FragmentManager fm = getSupportFragmentManager();
 
